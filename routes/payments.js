@@ -3,9 +3,7 @@ module.exports = function(app) {
     var payments = app.controllers.payments;
 
     
-    app.get('/payments/search', function(req,res){
-        logins.isLogged(req, res, payments.search);
-    });
+    app.get('/payments/search', payments.search);
     
     /*
     * Socket.IO Events

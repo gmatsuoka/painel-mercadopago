@@ -27,9 +27,9 @@
 
 
 
-<div class="row">
+<div class="row" id="ultimos-pagamentos">
     <h3>Últimos pagamentos</h3>
-    <table class="table">
+    <table class="table" id="payments-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -53,7 +53,6 @@
                 <td><span class="glyphicon glyphicon-th-list" data-toggle="modal" data-target="#movements"></span></td>
                 <td><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#confirm"></span></td>
                 <td><span class="glyphicon glyphicon-search"></span></td>
-                
             </tr>
         </tbody>
     </table>
@@ -61,7 +60,7 @@
 
 
 
-<!-- MODAL -->
+<!-- CANCELLED/REFUNDED -->
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -82,7 +81,7 @@
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- MOVEMENTS -->
 <div class="modal fade" id="movements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -100,5 +99,25 @@
   </div>
 </div>
 
+
+<!-- SHOW JSON -->
+<div class="modal fade" id="modal_show_json" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Payment JSON</h4>
+      </div>
+      
+      <div class="modal-body">
+        
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 

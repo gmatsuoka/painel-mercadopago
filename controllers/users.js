@@ -5,8 +5,7 @@ module.exports = function (app) {
     var UsersController = {
         
         balance: function(req, res) {
-            
-            User.getBalance(function(err, resp){
+            app.mp.balance(function(err, resp){
                 res.json(resp.response);
             });
         }

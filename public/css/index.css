@@ -66,6 +66,10 @@
     text-transform: uppercase;
 }
 
+#ultimos-pagamentos{
+    margin: 40px 0;
+}
+
 .glyphicon{
     cursor: pointer;
 }
@@ -74,6 +78,9 @@
     text-align: center;
 }
 
+.center{
+  text-align: center;
+}
 
 .loading{
     background-image: url("/images/loading-small.gif");
@@ -82,4 +89,8 @@
     display:inline-block;
     margin: 10px 0;
     
+}
+
+#modal_show_json .modal-dialog{
+    width: 800px;
 }
