@@ -1,0 +1,85 @@
+#main {
+    margin: 0 auto;
+    width: 1280px;
+}
+
+#cockpit{
+    width: 1200px;
+    min-height: 100%;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.row{
+    margin: 10px auto;
+}
+
+.circle-alert{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    margin: 0 auto;
+    display: table;
+}
+
+.circle-title{
+    font-size: 10px;
+    float: left;
+    width: 100%;
+    font-weight: normal;
+    margin: 70px 0 0 0;
+    text-transform: uppercase;
+}
+
+.circle-text{
+    float: left;
+    width: 100%;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.blue{
+    color: #31708f;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+}
+
+.green{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+
+.yellow{
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border: 1px solid #faebcc;
+}
+
+#cockpit h2{
+    float: left;
+    border: 1px solid red;
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.glyphicon{
+    cursor: pointer;
+}
+
+#confirm .modal-body{
+    text-align: center;
+}
+
+
+.loading{
+    background-image: url("/images/loading-small.gif");
+    width: 16px;
+    height: 16px;
+    display:inline-block;
+    margin: 10px 0;
+    
+}
