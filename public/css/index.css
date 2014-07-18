@@ -70,6 +70,19 @@
     margin: 40px 0;
 }
 
+
+
+
+#movements-table tr.fee{
+    background-color: #fcf8e3;
+}
+
+##movements-table tr.income{
+    
+}
+
+
+
 .glyphicon{
     cursor: pointer;
 }

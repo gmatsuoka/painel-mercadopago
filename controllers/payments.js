@@ -10,6 +10,16 @@ module.exports = function (app) {
             app.mp.searchPayment(filters, function(err, resp){
                 res.json(resp.response);
             });
+        },
+        
+        
+        searchMovements: function(req, res) {
+            var filters = req.query;
+            
+            app.mp.searchMovements(filters, function(err, resp){
+                res.json(resp.response);
+            });
+            
         }
     };
 

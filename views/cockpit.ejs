@@ -37,6 +37,7 @@
                 <th>Status</th>
                 <th>Status Detail</th>
                 <th>Data</th>
+                <th>Valor</th>
                 <th>Movements</th>
                 <th>Cancelled/Refunded</th>
                 <th>JSON</th>
@@ -50,6 +51,7 @@
                 <td>Approved</td>
                 <td>Accredited</td>
                 <td>17/07/2014 12:23:10</td>
+                <th>2.0</th>
                 <td><span class="glyphicon glyphicon-th-list" data-toggle="modal" data-target="#movements"></span></td>
                 <td><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#confirm"></span></td>
                 <td><span class="glyphicon glyphicon-search"></span></td>
@@ -71,10 +73,10 @@
       <div class="modal-body">
         
         <!-- Indicates a dangerous or potentially negative action -->
-        <button type="button" class="btn btn-danger">Tem certeza?</button>
+        <button type="button" class="btn btn-danger">Sim</button>
 
         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
 
       </div>
     </div>
@@ -90,7 +92,23 @@
         <h4 class="modal-title" id="myModalLabel">Movements</h4>
       </div>
       <div class="modal-body">
-        ...
+        
+        <table class="table" id="movements-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Valor</th>
+                    <th>Data de Criação</th>
+                    <th>JSON</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+            </tbody>
+        </table>
+        
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -106,7 +124,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Payment JSON</h4>
+        <h4 class="modal-title" id="myModalLabel">JSON</h4>
       </div>
       
       <div class="modal-body">
