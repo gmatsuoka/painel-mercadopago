@@ -1,34 +1,151 @@
-<html>
-    <head>
-        <title>Painel MercadoPago</title>
+<% include layout/header %>
+
+
+
+
+<script src="/js/cockpit.js"></script>
+
+<div id="cockpit">
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <div class="circle-alert blue" id="balance">
+                <span class="circle-title">Dinheiro Disponível</span>
+                <span class="circle-text">R$ 100.000,00</span>
+            </div>
+        </div>
         
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <div class="col-xs-6 col-md-4 ">
+            <div class="circle-alert green">
+                <span class="circle-title">Média de Conversão</span>
+                <span class="circle-text">95%</span>
+            </div>
+        </div>
         
-        <link rel="stylesheet" href="css/index.css">
-        
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        
-        <!-- jquery -->
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="/js/moment.min.js"></script>
-        <script src="/js/jquery.cockpit.js"></script>
-        <script src="/js/app.js"></script>
-        
-    </head>
+        <div class="col-xs-6 col-md-4">
+            <div class="circle-alert yellow">
+                <span class="circle-title">Média de Aprovação</span>
+                <span class="circle-text">99%</span>
+            </div>
+        </div>
+    </div> <!-- end .row -->
     
-    <body>
+    
+    
+    
+    <div class="row" id="ultimos-pagamentos">
+        <h3>Últimos pagamentos</h3>
+        <table class="table" id="payments-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Status Detail</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Movements</th>
+                    <th>Cancelled/Refunded</th>
+                    <th>JSON</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td>632132132</td>
+                    <td>gabriel.matsuoka@gmail.com</td>
+                    <td>Approved</td>
+                    <td>Accredited</td>
+                    <td>17/07/2014 12:23:10</td>
+                    <th>2.0</th>
+                    <td><span class="glyphicon glyphicon-th-list" data-toggle="modal" data-target="#movements"></span></td>
+                    <td><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#confirm"></span></td>
+                    <td><span class="glyphicon glyphicon-search"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- end #cockpit -->
+
+
+
+<!-- CANCELLED/REFUNDED -->
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Você tem certeza dessa ação?</h4>
+      </div>
+      <div class="modal-body">
         
-        <div id="main">
+        <!-- Indicates a dangerous or potentially negative action -->
+        <button type="button" class="btn btn-danger btn-confirm-action-operation">Sim</button>
+
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOVEMENTS -->
+<div class="modal fade" id="movements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Movements</h4>
+      </div>
+      <div class="modal-body">
+        
+        <table class="table" id="movements-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Valor</th>
+                    <th>Data de Criação</th>
+                    <th>JSON</th>
+                </tr>
+            </thead>
             
-            <div id="cockpit">
-                <% include cockpit %>
-            </div> <!-- end #cockpit -->
-            
-        </div><!-- end #main -->
-    </body>
-</html>
+            <tbody>
+            </tbody>
+        </table>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SHOW JSON -->
+<div class="modal fade" id="modal_show_json" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">JSON</h4>
+      </div>
+      
+      <div class="modal-body">
+        
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<% include layout/footer %>

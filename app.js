@@ -3,8 +3,23 @@ var express = require('express'),
     load = require('express-load'),
     server = require('http').createServer(app),
     fs = require('fs'),
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server),
+    cookieParser = require('cookie-parser'),
+    session = require('cookie-session'),
+    bodyParser = require('body-parser'),
+    moment = require('moment');
     
+  
+/*
+
+var elasticsearch = require('elasticsearch');
+var client = new elasticsearch.Client({
+  host: 'localhost:9200',
+  log: 'trace'
+});
+
+*/
+
 io.set('transports', ['xhr-polling']);
 
 //set port
@@ -22,7 +37,15 @@ app.use(express.static(__dirname + '/public'));
 //seta o tipo de view
 app.set('view engine', 'ejs');
 
-//save socket in app
+//set cookie and parse post request
+app.use(cookieParser());
+app.use(session({keys: ["painel-mercadopago"]}));
+app.use(bodyParser());
+
+//use moment in app
+app.moment = moment
+
+//save socket in app  
 app.io = io;
 
 //init mp

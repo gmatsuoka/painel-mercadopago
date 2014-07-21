@@ -5,4 +5,8 @@ module.exports = function(app) {
     
     app.get('/', panel.index);
     
+    app.get('/checkout', panel.checkout);
+    
+    app.post('/qrcode', panel.generateQrCode);
+    
 }

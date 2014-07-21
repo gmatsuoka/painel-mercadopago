@@ -3,6 +3,37 @@
     width: 1280px;
 }
 
+
+
+#menu{
+    background-color: #000;
+    width: 100%;
+    text-align: center;
+    padding: 5px 40px;
+}
+
+#menu li{
+    display:inline;
+    list-style:none;
+}
+
+#menu li a{
+    color: #fff;
+    font-size: 20px;
+    margin: 0 10px;
+    text-decoration: none;
+}
+#menu li a:hover{
+    color:#eee;
+}
+
+/**
+ *
+ *
+ * Cockpit
+ *
+ **/
+
 #cockpit{
     width: 1200px;
     min-height: 100%;
@@ -70,9 +101,6 @@
     margin: 40px 0;
 }
 
-
-
-
 #movements-table tr.fee{
     background-color: #fcf8e3;
 }
@@ -80,8 +108,6 @@
 ##movements-table tr.income{
     
 }
-
-
 
 .glyphicon{
     cursor: pointer;
@@ -96,14 +122,28 @@
 }
 
 .loading{
-    background-image: url("/images/loading-small.gif");
+    background: url("/images/loading-small.gif") no-repeat;
     width: 16px;
     height: 16px;
     display:inline-block;
-    margin: 10px 0;
     
 }
 
 #modal_show_json .modal-dialog{
     width: 800px;
+}
+
+
+
+/*
+ *
+ * Checkout
+ *
+ */
+
+
+#qrcode svg{
+    float: left;
+    width: 120px;
+    margin: -280px 0 0;
 }

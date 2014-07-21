@@ -4,6 +4,8 @@ $(document).ready(function() {
 
     getBalance();
     getPaymentsInit();
+    actions();
+    actions_reload();
 });
 
 
@@ -44,32 +46,46 @@ function getPaymentsInit() {
             $.each(res.results, function(p, payment){
                 payment = payment.collection;
                 
-                html += '<tr>';
-                html += '<td> '+ payment.id +' </td>';
-                html += '<td> '+ payment.payer.email +' </td>';
-                html += '<td> '+ payment.status +' </td>';
-                html += '<td> '+ payment.status_detail +' </td>';
-                html += '<td> '+ moment(payment.date_created).format("YYYY-MM-DD HH:mm:ss") +' </td>';
-                html += '<td> R$ '+ payment.transaction_amount +' </td>';
-                html += '<td class="center"><span class="glyphicon glyphicon-th-list" data-toggle="modal" data-target="#movements" data-operation-id="'+payment.id+'"></span></td>';
-                
-                html += '<td class="center">';
-                if (payment.status != "refunded" && payment.status != "cancelled") {
-                    html += '<span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#confirm" data-operation-id="'+payment.id+'"></span>'    
-                }
-                html += '</td>';
-                
-                html += "<td class=\"center\"><span class=\"glyphicon glyphicon-resize-full\" data-value-json='" + JSON.stringify($.makeArray(payment), null, '\t') + "'></span></td>";
+                html += '<tr class="line-'+ payment.id +'">';
+                html += getPaymentHtml(payment);
                 html += '</tr>';
             });
             
             $payment.find("tbody").html(html);
-            actions();
+            actions_reload();
         }
     });
 }
 
-function actions(){
+
+
+function actions() {
+    $(".btn-confirm-action-operation").click(function(){
+        
+        $('#confirm').modal('hide');
+        var operation_id = $(this).attr("data-operation-id");
+        
+        var $payment = $(".line-" + operation_id);
+        $payment.html('<td colspan="9" class="center"><span class="loading"></span></td>');
+        
+        var query = "operation_id=" + operation_id;
+        $.ajax({
+            type: "GET",
+            url: "/payments/cancel?" + query,
+            success: function(payment){
+                
+                var html = getPaymentHtml(payment);
+                $payment.html(html);
+                actions_reload();
+            }
+        });
+    });
+}
+
+
+function actions_reload(){
+    
+    //Mostrando detalhes do JSON
     $(".glyphicon-resize-full").click(function(){
         
         var html = $(this).attr("data-value-json");
@@ -78,9 +94,7 @@ function actions(){
     });
     
     
-    
-    
-    
+    //Pegando movements do pagamento
     $(".glyphicon-th-list").click(function(){
     
         var $movements = $("#movements-table");
@@ -107,8 +121,43 @@ function actions(){
                 });
                 
                 $movements.find("tbody").html(html);
-                actions();
+                actions_reload();
             }
         });
     });
+    
+    
+    
+    //Botao para cancelamento ou devolução do pagamento
+    $(".glyphicon-edit").click(function(){
+        var operation_id = $(this).attr("data-operation-id");
+        $(".btn-confirm-action-operation").attr("data-operation-id", operation_id);
+        actions_reload();
+    });
+    
+}
+
+
+
+function getPaymentHtml(payment) {
+    
+    var html = "";
+    
+    html += '<td> '+ payment.id +' </td>';
+    html += '<td> '+ payment.payer.email +' </td>';
+    html += '<td> '+ payment.status +' </td>';
+    html += '<td> '+ payment.status_detail +' </td>';
+    html += '<td> '+ moment(payment.date_created).format("YYYY-MM-DD HH:mm:ss") +' </td>';
+    html += '<td> R$ '+ payment.transaction_amount +' </td>';
+    html += '<td class="center"><span class="glyphicon glyphicon-th-list" data-toggle="modal" data-target="#movements" data-operation-id="'+payment.id+'"></span></td>';
+    
+    html += '<td class="center">';
+    if (payment.status != "refunded" && payment.status != "cancelled") {
+        html += '<span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#confirm" data-operation-id="'+payment.id+'"></span>'    
+    }
+    html += '</td>';
+    
+    html += "<td class=\"center\"><span class=\"glyphicon glyphicon-resize-full\" data-value-json='" + JSON.stringify($.makeArray(payment), null, '\t') + "'></span></td>";
+    
+    return html;
 }
