@@ -19,8 +19,6 @@ function create_preference(e) {
         },
         url: "/preference",
         success: function(res){
-            console.log(res);
-            
             create_qrcode(res.init_point);
         }
     });
@@ -31,13 +29,17 @@ function create_preference(e) {
 function create_qrcode(link){
     $.ajax({
         type: "POST",
+        
         data: {
             link: link
         },
         url: "/qrcode",
         success: function(res){
-            console.log(res);
-            $("#qrcode").empty().append(res);
+            
+            var html = res;
+            html += 'Link para o checkout: <a href="' + link + '">' +link+'</a>';
+            
+            $("#qrcode").empty().append(html);
         }
     });
 }

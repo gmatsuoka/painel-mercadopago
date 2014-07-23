@@ -143,7 +143,5 @@
 
 
 #qrcode svg{
-    float: left;
-    width: 120px;
-    margin: -280px 0 0;
+    height: 305px;
 }

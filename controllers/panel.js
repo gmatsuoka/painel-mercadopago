@@ -16,6 +16,7 @@ module.exports = function (app) {
             
             var code = qr.image(req.body.link, { type: 'svg' });
             
+            res.type('text');
             code.pipe(res);
         }
     };
