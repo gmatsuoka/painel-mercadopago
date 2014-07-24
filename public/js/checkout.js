@@ -36,8 +36,15 @@ function create_qrcode(link){
         url: "/qrcode",
         success: function(res){
             
-            var html = res;
-            html += 'Link para o checkout: <a href="' + link + '">' +link+'</a>';
+            var html = "<h4>Acesse através do QR Code </h4>";
+            html += res;
+            html += '<h4>Através do Link para o checkout</h4>';
+            html += '<a href="' + link +'" name="MP-Checkout" class="lightblue-M-Ov-BrOn" mp-mode="modal">Pagar</a>';
+            html += '\
+                <!-- JS para MERCADOPAGO --> \
+                <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script> \
+            ';
+            
             
             $("#qrcode").empty().append(html);
         }

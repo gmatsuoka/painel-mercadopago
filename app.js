@@ -7,18 +7,10 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('cookie-session'),
     bodyParser = require('body-parser'),
-    moment = require('moment');
-    
+    moment = require('moment'),
+    MP = require ("mercadopago"),
+    elasticsearch = require('elasticsearch');
   
-/*
-
-var elasticsearch = require('elasticsearch');
-var client = new elasticsearch.Client({
-  host: 'localhost:9200',
-  log: 'trace'
-});
-
-*/
 
 io.set('transports', ['xhr-polling']);
 
@@ -45,11 +37,20 @@ app.use(bodyParser());
 //use moment in app
 app.moment = moment
 
-//save socket in app  
+//save socket in app
 app.io = io;
 
-//init mp
-var MP = require ("mercadopago");
+//inicia variavel de notificacoes
+app.notify_me = [];
+
+//add elasticsearch
+app.es = new elasticsearch.Client({
+  host: 'https://o4fgzv2a:58ul4pc0p5x0w18r@ginkgo-4366083.us-east-1.bonsai.io:443',
+  log: 'trace'
+});
+
+
+//add mp
 app.mp = new MP ("3100176199951133", "PHtTUr4gzvOheDtZsAWTqvOMIQ0kOKA8");
 
 load('models')

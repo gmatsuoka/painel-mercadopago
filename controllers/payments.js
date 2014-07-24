@@ -41,6 +41,30 @@ module.exports = function (app) {
                     });
                 }
             });
+        },
+        
+        notification: function(req, res){
+            var filters = req.query;
+            
+            if (filters.topic == "payment") {
+                app.mp.getPayment(filters.id, function(err, json){
+                    Payment.insertPayment(json.response.collection, function(err, resp){
+                        res.send(json.response.collection);
+                    });
+                });
+            }else if (filters.topic == "merchant_orders") {
+                app.mp.getMerchantOrder(filters.id, function(err, json){
+                    Payment.insertMerchantOrder(json.response, function(err, resp){
+                        res.send(json.response);
+                    });
+                });
+            }
+            
+            //notifica todos que tem novas "coisas"
+            for(var x in app.notify_me){
+                var params = filters;
+                app.io.sockets.socket(app.notify_me[x]).emit('notify', params);
+            }
         }
     };
 

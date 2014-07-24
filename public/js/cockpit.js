@@ -1,3 +1,8 @@
+var socket = io.connect('http://painelmp.herokuapp.com:80', {
+    resource: "socket.io"
+});
+    
+
 $(document).ready(function() {
 
 
@@ -6,6 +11,16 @@ $(document).ready(function() {
     getPaymentsInit();
     actions();
     actions_reload();
+    
+
+
+    //notify
+    socket.emit("notify-me");
+    
+    socket.on("notify", function(o){
+        alert("notificou");
+        console.log(o);
+    });
 });
 
 
