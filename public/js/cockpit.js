@@ -166,8 +166,8 @@ function actions() {
 function actions_reload(){
     
     //Mostrando detalhes do JSON
+    $(".glyphicon-resize-full").unbind("click");
     $(".glyphicon-resize-full").click(function(){
-        
         var html = $(this).attr("data-value-json");
         $("#modal_show_json").find(".modal-body").html("<pre>" + html + "</pre>");
         $('#modal_show_json').modal('toggle');
@@ -175,6 +175,7 @@ function actions_reload(){
     
     
     //Pegando movements do pagamento
+    $(".glyphicon-th-list").unbind("click");
     $(".glyphicon-th-list").click(function(){
     
         var $movements = $("#movements-table");
@@ -209,6 +210,7 @@ function actions_reload(){
     
     
     //Botao para cancelamento ou devolução do pagamento
+    $(".glyphicon-edit").unbind("click");
     $(".glyphicon-edit").click(function(){
         var operation_id = $(this).attr("data-operation-id");
         $(".btn-confirm-action-operation").attr("data-operation-id", operation_id);
