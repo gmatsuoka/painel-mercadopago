@@ -51,7 +51,9 @@ app.es = new elasticsearch.Client({
 
 
 //add mp
-app.mp = new MP ("3100176199951133", "PHtTUr4gzvOheDtZsAWTqvOMIQ0kOKA8");
+//user de teste
+//app.mp = new MP ("3100176199951133", "PHtTUr4gzvOheDtZsAWTqvOMIQ0kOKA8");
+app.mp = new MP ("8026333412364244", "5PhQqCKuEEQ4jMSvtoz0FgHQmcfBXCx2");
 
 load('models')
     .then('controllers')
