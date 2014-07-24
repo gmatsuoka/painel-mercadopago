@@ -56,7 +56,7 @@ function getConversion(){
     
     $.ajax({
         type: "GET",
-        url: "/merchant_orders/conversion?t=" + moment().format("YYYYMMDDHHmmsss"),
+        url: "/merchant_orders/conversion",
         success: function(res){
             $conversion.find(".circle-text").html(res.conversion + "%");
         }
