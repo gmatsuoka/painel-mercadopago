@@ -101,6 +101,14 @@
     margin: 40px 0;
 }
 
+#payments-table tbody tr td{
+    font-size: 14px;    
+}
+
+.newpayment{
+    background-color: #dff0d8;
+}
+
 #movements-table tr.fee{
     background-color: #fcf8e3;
 }
@@ -132,6 +140,7 @@
 #modal_show_json .modal-dialog{
     width: 800px;
 }
+
 
 
 

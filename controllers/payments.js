@@ -39,6 +39,40 @@ module.exports = function (app) {
                     });
                 }
             });
+        },
+        
+        approval: function(req, res) {
+            
+            Payment.groupPaymentStatus(function(r){
+                var approved = 0;
+                var total = 0;
+                var status = r.aggregations.group.buckets;
+                var approval = "100.00";
+                
+                for(var x in status){
+                    if (status[x].key == "approved") {
+                        //soma os aprovados
+                        approved = parseInt(status[x].doc_count)
+                    }
+                    
+                    if (status[x].key != "refunded") {
+                        //soma total
+                        total += parseInt(status[x].doc_count)
+                    }
+                }
+                
+                //n‹o da pra dividir por zero, caso seja zero Ž 100% de aprovacao
+                if (total == 0) {
+                    approval = "100.00"
+                }else{
+                    approval = ( approved * 100 / total ).toFixed(2)
+                }
+                
+                res.json({
+                    approval: approval
+                });
+            });
+            
         }
     };
 

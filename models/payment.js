@@ -24,6 +24,38 @@ module.exports = function (app) {
             });
         },
         
+        groupPaymentStatus: function(callback){
+            app.es.search({
+                index: 'payments',
+                type: 'payment',
+                body: {
+                    aggs: {
+                        group: {
+                            terms: {
+                                field: "status"
+                            },
+                            aggs: {
+                                count: {
+                                    value_count: {
+                                        field: "id"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    size: 0
+                }
+            }, function (error, response) {
+                if (error) {
+                    console.trace('error: ', error);
+                    return;
+                }
+                
+                callback(response);
+            });
+            
+        },
+        
         insertLog: function(type, json, callback){
             app.es.index({
                 index: 'logs',

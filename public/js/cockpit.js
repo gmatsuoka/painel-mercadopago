@@ -13,6 +13,7 @@ $(document).ready(function() {
     getBalance();
     getPaymentsInit();
     getConversion();
+    getApproval();
     
     
     //inicia actions
@@ -27,9 +28,13 @@ $(document).ready(function() {
         
         if (o.topic == "merchant_order") {
             // use setTimeout() to execute
-            setTimeout(getConversion, 5000)
+            setTimeout(getConversion, 2000)
+        }else if (o.topic == "payment") {
+            // use setTimeout() to execute
+            setTimeout(getBalance, 500);
+            setTimeout(getApproval, 2000);
+            setTimeout(getPayment, 500, o.id);
         }
-        
     });
 });
 
@@ -64,6 +69,47 @@ function getConversion(){
     
 }
 
+
+function getApproval(){
+    
+    
+    var $approval = $("#approval");
+    
+    $.ajax({
+        type: "GET",
+        url: "/payments/approval",
+        success: function(res){
+            $approval.find(".circle-text").html(res.approval + "%");
+        }
+    });
+}
+function getPayment(payment_id) {
+    var query = "id=" + payment_id;
+    var $payment = $("#payments-table");
+    
+    $.ajax({
+        type: "GET",
+        url: "/payments/search?" + query,
+        success: function(res){
+            var html = "";
+            $.each(res.results, function(p, payment){
+                payment = payment.collection;
+                
+                
+                $('.line-'+ payment.id).remove();
+                
+                html += '<tr class="line-'+ payment.id +' newpayment">';
+                html += getPaymentHtml(payment);
+                html += '</tr>';
+            });
+            
+            $payment.find("tbody tr:first").before(html);
+            //$payment.find("tbody").html(html);
+            actions_reload();
+        }
+    });
+}
+
 function getPaymentsInit() {
     var query = "sort=date_created";
     query += "&criteria=desc"
@@ -76,7 +122,6 @@ function getPaymentsInit() {
         type: "GET",
         url: "/payments/search?" + query,
         success: function(res){
-            
             var html = "";
             $.each(res.results, function(p, payment){
                 payment = payment.collection;
@@ -170,6 +215,11 @@ function actions_reload(){
         actions_reload();
     });
     
+    
+    
+    $(".newpayment").hover(function(){
+        $(this).removeClass("newpayment");
+    });
 }
 
 
@@ -203,4 +253,6 @@ function setLoading() {
     $.setLoading($("#payments-table"));
     $.setLoading($("#balance").find(".circle-text"));
     $.setLoading($("#coversion").find(".circle-text"));
+    $.setLoading($("#approval").find(".circle-text"));
+    
 }
