@@ -52,7 +52,7 @@ module.exports = function (app) {
                         res.send(json.response.collection);
                     });
                 });
-            }else if (filters.topic == "merchant_orders") {
+            }else if (filters.topic == "merchant_order") {
                 app.mp.getMerchantOrder(filters.id, function(err, json){
                     Payment.insertMerchantOrder(json.response, function(err, resp){
                         res.send(json.response);
