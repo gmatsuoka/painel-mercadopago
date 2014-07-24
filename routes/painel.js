@@ -9,7 +9,15 @@ module.exports = function(app) {
     
     app.post('/qrcode', panel.generateQrCode);
     
-    //
+    
+    //tanto get quanto post, aceitando notificacao
+    //get para testes
+    //post é usado em produção para receber notificaçoes do MercadoPago
+    app.get('/notification', panel.notification);
+    app.post('/notification', panel.notification);
+    
+    
+    //Socket io
     app.io.sockets.on('connection', function (socket) {
         
         socket.on('notify-me', function(){

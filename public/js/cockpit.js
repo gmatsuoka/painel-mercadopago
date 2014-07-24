@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 
     //inicia com os loadings
-    setLoading
+    setLoading();
     
     //inicia os gets
     getBalance();
@@ -200,7 +200,7 @@ function getPaymentHtml(payment) {
 
 function setLoading() {
     
-    $.setLoading($("#payments-table").find(".circle-text"));
+    $.setLoading($("#payments-table"));
     $.setLoading($("#balance").find(".circle-text"));
     $.setLoading($("#coversion").find(".circle-text"));
 }
