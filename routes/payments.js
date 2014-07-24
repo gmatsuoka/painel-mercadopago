@@ -8,6 +8,9 @@ module.exports = function(app) {
     app.get('/payments/search_movements', payments.searchMovements);
     
     app.get('/notification', payments.notification);
+    
+    app.post('/notification', payments.notification);
+    
 
     
     /*
