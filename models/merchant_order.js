@@ -1,28 +1,6 @@
 module.exports = function (app) {
 
-    var PaymentModel = {
-
-        insertPayment: function(payment, callback) {
-            
-            var payments = this;
-                            
-            app.es.index({
-                index: 'payments',
-                type: 'payment',
-                id: payment.id,
-                body: payment
-            }, function (error, response) {
-                if (error) {
-                    console.trace('error: ', error);
-                    return;
-                }
-                
-                //insert log
-                payments.insertLog("payments", payment, function(){});
-                
-                callback(response);
-            });
-        },
+    var MerchantOrderModel = {
         
         insertMerchantOrder: function(order, callback){
             
@@ -96,5 +74,5 @@ module.exports = function (app) {
         }
         
     };
-    return PaymentModel;
+    return MerchantOrderModel;
 };

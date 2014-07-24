@@ -12,7 +12,6 @@ module.exports = function (app) {
             });
         },
         
-        
         searchMovements: function(req, res) {
             var filters = req.query;
             
@@ -21,7 +20,6 @@ module.exports = function (app) {
             });
             
         },
-        
         
         cancel: function(req, res){
             var filters = req.query;
@@ -45,21 +43,27 @@ module.exports = function (app) {
         
         notification: function(req, res){
             var filters = req.query;
-            
+            var Payments = this;
             if (filters.topic == "payment") {
                 app.mp.getPayment(filters.id, function(err, json){
                     Payment.insertPayment(json.response.collection, function(err, resp){
+                        Payments.notify(filters);
                         res.send(json.response.collection);
                     });
                 });
             }else if (filters.topic == "merchant_order") {
                 app.mp.getMerchantOrder(filters.id, function(err, json){
                     Payment.insertMerchantOrder(json.response, function(err, resp){
+                        Payments.notify(filters);
                         res.send(json.response);
                     });
                 });
             }
             
+            
+        },
+        
+        notify: function(filters){
             //notifica todos que tem novas "coisas"
             for(var x in app.notify_me){
                 var params = filters;

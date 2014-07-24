@@ -6,20 +6,30 @@ var socket = io.connect('http://painelmp.herokuapp.com:80', {
 $(document).ready(function() {
 
 
-
+    //inicia com os loadings
+    setLoading
+    
+    //inicia os gets
     getBalance();
     getPaymentsInit();
+    getConversion();
+    
+    
+    //inicia actions
     actions();
     actions_reload();
-    
 
-
-    //notify
+    //adiciona client para receber notificações
     socket.emit("notify-me");
     
     socket.on("notify", function(o){
-        alert("notificou");
         console.log(o);
+        
+        if (o.topic == "merchant_order") {
+            // use setTimeout() to execute
+            setTimeout(getConversion, 5000)
+        }
+        
     });
 });
 
@@ -29,9 +39,7 @@ $(document).ready(function() {
 
 function getBalance(){
     var $balance = $("#balance");
-    
-    $.setLoading($balance.find(".circle-text"));
-    
+        
     $.ajax({
         type: "GET",
         url: "/user/balance",
@@ -43,6 +51,19 @@ function getBalance(){
 }
 
 
+function getConversion(){
+    var $conversion = $("#conversion");
+    
+    $.ajax({
+        type: "GET",
+        url: "/merchant_orders/conversion?t=" + moment().format("YYYYMMDDHHmmsss"),
+        success: function(res){
+            $conversion.find(".circle-text").html(res.conversion + "%");
+        }
+    });
+    
+}
+
 function getPaymentsInit() {
     var query = "sort=date_created";
     query += "&criteria=desc"
@@ -50,7 +71,6 @@ function getPaymentsInit() {
     query += "&limit=10"
     
     var $payment = $("#payments-table");
-    $.setLoading($payment);
     
     $.ajax({
         type: "GET",
@@ -175,4 +195,12 @@ function getPaymentHtml(payment) {
     html += "<td class=\"center\"><span class=\"glyphicon glyphicon-resize-full\" data-value-json='" + JSON.stringify($.makeArray(payment), null, '\t') + "'></span></td>";
     
     return html;
+}
+
+
+function setLoading() {
+    
+    $.setLoading($("#payments-table").find(".circle-text"));
+    $.setLoading($("#balance").find(".circle-text"));
+    $.setLoading($("#coversion").find(".circle-text"));
 }
