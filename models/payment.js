@@ -56,6 +56,39 @@ module.exports = function (app) {
             
         },
         
+        logs: function(callback){
+            app.es.search({
+                index: 'logs',
+                type: 'payments',
+                body: {
+                        sort: [
+                            {
+                                last_modified: {
+                                    "order": "asc"
+                                }
+                            }
+                        ],
+                        query: {
+                            bool: {
+                                must: [
+                                    {
+                                        match_all: {}
+                                    }
+                                ]
+                            }
+                        }
+                    }
+            }, function (error, response) {
+                if (error) {
+                    console.trace('error: ', error);
+                    return;
+                }
+                
+                callback(response);
+            });
+            
+        },
+        
         insertLog: function(type, json, callback){
             app.es.index({
                 index: 'logs',

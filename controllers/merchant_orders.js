@@ -24,6 +24,12 @@ module.exports = function (app) {
                 });
             });
             
+        },
+        
+        logs: function(req, res) {
+            MerchantOrder.logs(function(r){
+                res.json(r);
+            });
         }
     };
 

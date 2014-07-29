@@ -7,6 +7,8 @@ module.exports = function(app) {
     
     app.get('/checkout', panel.checkout);
     
+    app.get('/logs', panel.logs);
+    
     app.post('/qrcode', panel.generateQrCode);
     
     

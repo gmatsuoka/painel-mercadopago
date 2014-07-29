@@ -14,6 +14,10 @@ module.exports = function (app) {
             res.render('checkout');
         },
         
+        logs: function(req, res) {
+            res.render('logs');
+        },
+        
         generateQrCode: function(req, res) {
             
             var qr = require('qr-image');  

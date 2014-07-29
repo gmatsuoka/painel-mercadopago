@@ -73,6 +73,12 @@ module.exports = function (app) {
                 });
             });
             
+        },
+        
+        logs: function(req, res) {
+            Payment.logs(function(r){
+                res.json(r);
+            });
         }
     };
 

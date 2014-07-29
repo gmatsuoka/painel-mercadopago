@@ -1,16 +1,28 @@
 $(document).ready(function() {
 
+    //cria qrcode para pagina de checkout
     create_qrcode("http://painelmp.herokuapp.com/checkout");
+    
+    //pega o evento do formulario
     $("#create_preference").submit(create_preference);
     
+    
+    //esconde o loading
+    $(".box-loading").hide();
+     
 });
 
 
 function create_preference(e) {
+    //remove action do formulario
     e.preventDefault();
     
+    //esconde o botao
+    $(".btn-send").hide();
     
-    $.setLoading($("#qrcode"));
+    //setta loading
+    $(".box-loading").fadeIn();
+    
     $.ajax({
         type: "POST",
         data: {
