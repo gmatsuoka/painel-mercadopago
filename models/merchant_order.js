@@ -64,8 +64,8 @@ module.exports = function (app) {
                 body: {
                         sort: [
                             {
-                                last_updated: {
-                                    order: asc
+                                "last_updated": {
+                                    "order": "desc"
                                 }
                             }
                         ],

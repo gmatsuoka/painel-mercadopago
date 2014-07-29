@@ -1,21 +1,25 @@
 <% include layout/header %>
 
+<script src="/js/logs.js"></script>
 
 <div id="log">
-    <div class="row" id="ultimos-pagamentos">
+    <div class="row" id="">
         <h3>Logs de Notificação</h3>
+        
+        <p>
+            <span class="select-log active">Payments</span>
+        </p>
+        <p>
+            <span class="select-log">Merchant Orders</span>
+        </p>
         
         <table class="table" id="logs-table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Email</th>
+                    <th>Data de atualização</th>
                     <th>Status</th>
                     <th>Status Detail</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                    <th>Movements</th>
-                    <th>Cancelled/Refunded</th>
                     <th>JSON</th>
                 </tr>
             </thead>

@@ -139,6 +139,12 @@
     width: 800px;
 }
 
+pre{
+    font-size: 18px;
+    background-color: #000;
+    font-weight: bold;
+    color: #fff;
+}
 
 
 
@@ -157,4 +163,29 @@
 
 #qrcode svg{
     height: 500px;
+}
+
+
+/*
+ *
+ *
+ * Logs
+ *
+ *
+ */
+
+.select-log{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.select-log.active{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    padding: 5px 10px;
+    border-radius: 10px;
 }

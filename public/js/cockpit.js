@@ -244,7 +244,7 @@ function getPaymentHtml(payment) {
     }
     html += '</td>';
     
-    html += "<td class=\"center\"><span class=\"glyphicon glyphicon-resize-full\" data-value-json='" + JSON.stringify($.makeArray(payment), null, '\t') + "'></span></td>";
+    html += "<td class=\"center\"><span class=\"glyphicon glyphicon-resize-full\" data-value-json='" + JSON.stringify($.makeArray(payment), null, 2) + "'></span></td>";
     
     return html;
 }
