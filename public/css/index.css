@@ -149,6 +149,12 @@
  */
 
 
+@media screen and (max-width: 400px) {
+  #qrcode{
+    display: none;
+  }
+}
+
 #qrcode svg{
     height: 500px;
 }
