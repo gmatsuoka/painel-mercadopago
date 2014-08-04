@@ -8,5 +8,7 @@ module.exports = function(app) {
     app.get('/payments/cancel', payments.cancel);
     app.get('/payments/approval', payments.approval);
     app.get('/payments/logs', payments.logs);
+    app.get('/payments/payments_methods', payments.payments_methods);
+    
     
 }

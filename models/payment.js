@@ -89,6 +89,38 @@ module.exports = function (app) {
             
         },
         
+        payments_methods: function(callback){
+            app.es.search({
+                index: 'payments',
+                type: 'payment',
+                body: {
+                    aggs: {
+                        group: {
+                            terms: {
+                                field: "payment_method_id"
+                            },
+                            aggs: {
+                                sum_transaction: {
+                                    stats: {
+                                        field: "payment.transaction_amount"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    size: 0
+                }
+            }, function (error, response) {
+                if (error) {
+                    console.trace('error: ', error);
+                    return;
+                }
+                
+                callback(response);
+            });
+            
+        },
+        
         insertLog: function(type, json, callback){
             app.es.index({
                 index: 'logs',

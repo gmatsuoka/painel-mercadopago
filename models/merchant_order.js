@@ -57,6 +57,40 @@ module.exports = function (app) {
             
         },
         
+        groupDateStatusMerchantOrder: function(callback){
+            app.es.search({
+                index: 'merchant_orders',
+                type: 'merchant_order',
+                body: {
+                    aggs: {
+                        date: {
+                            date_histogram: {
+                                field: "date_created",
+                                interval: "day",
+                                format: "yyyy-MM-dd"
+                            },
+                            aggs: {
+                                group: {
+                                    terms: {
+                                        field: "status"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    size: 0
+                }
+            }, function (error, response) {
+                if (error) {
+                    console.trace('error: ', error);
+                    return;
+                }
+                
+                callback(response);
+            });
+            
+        },
+        
         logs: function(callback){
             app.es.search({
                 index: 'logs',

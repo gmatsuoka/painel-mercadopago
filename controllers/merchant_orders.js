@@ -20,10 +20,18 @@ module.exports = function (app) {
                 }
                 
                 res.json({
-                    conversion: ( closed * 100 / (open+closed) ).toFixed(2)
+                    conversion: ( closed * 100 / (open+closed) ).toFixed(2),
+                    open: open,
+                    closed: closed
                 });
             });
             
+        },
+        
+        groupDateStatusMerchantOrder: function(req, res) {
+            MerchantOrder.groupDateStatusMerchantOrder(function(r){
+                res.json(r);
+            });
         },
         
         logs: function(req, res) {

@@ -14,6 +14,10 @@ module.exports = function (app) {
             res.render('checkout');
         },
         
+        graficos: function(req, res) {
+            res.render('graficos');
+        },
+        
         logs: function(req, res) {
             res.render('logs');
         },
