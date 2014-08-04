@@ -81,6 +81,12 @@ module.exports = function (app) {
             });
         },
         
+        status: function(req, res) {
+            Payment.status(function(r){
+                res.json(r);
+            });
+        },
+        
         payments_methods: function(req, res) {
             Payment.payments_methods(function(r){
                 res.json(r);

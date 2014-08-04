@@ -2,6 +2,7 @@ $(document).ready(function() {
     conversion();
     groupDateStatus();
     meios_de_pagamento();
+    payment_status();
 });
 
 
@@ -34,7 +35,7 @@ function groupDateStatus() {
             
             $('.merchant_order_column').highcharts({
                 title: {
-                    text: 'Merchant Order Status',
+                    text: 'Merchant Order Status (Checkout)',
                     x: -20 
                 },
                 xAxis: {
@@ -106,6 +107,86 @@ function conversion() {
         }
     });
 }
+
+
+function payment_status() {
+    $.ajax({
+        type: "GET",
+        url: "/payments/status",
+        success: function(res){
+            
+            var qtd = [];
+            var valor = [];
+            
+            $.each(res.aggregations.group.buckets, function(pos, pm){
+                qtd.push([pm.key, pm.doc_count]);
+                valor.push({name: pm.key, data: [pm.sum_transaction.sum]});
+            });
+            
+            
+            
+            $('.payment_status_pie').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Status de Pagamento'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Porcentagem',
+                    data: qtd
+                }]
+            });
+            
+            
+            $('.payment_status_column').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Total por Status de Pagamento'
+                },
+                xAxis: {
+                    categories: [
+                        'Atual'
+                    ]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Reais (R$)'
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: valor
+            });
+        }
+    });
+}
+
 
 function meios_de_pagamento() {
     $.ajax({
