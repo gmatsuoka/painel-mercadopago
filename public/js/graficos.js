@@ -43,7 +43,7 @@ function groupDateStatus() {
                 },
                 yAxis: {
                     title: {
-                        text: 'Temperature (°C)'
+                        text: 'Quantidade'
                     },
                     plotLines: [{
                         value: 0,
